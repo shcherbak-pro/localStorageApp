@@ -1,27 +1,41 @@
-# LocalStoreApp
+# Local Storage App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.2.
+Static Angular application for adding, listing, removing, and clearing users stored in the browser `localStorage`.
 
-## Development server
+## Tech stack
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- Angular 22
+- Standalone components
+- Angular Signals
+- Reactive Forms
+- GitHub Pages deployment workflow
 
-## Code scaffolding
+## Development
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+npm install
+npm start
+```
+
+Open `http://localhost:4200`.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```bash
+npm run build
+```
 
-## Running unit tests
+For GitHub Pages, the workflow builds with repository-based base href:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+npm run build -- --base-href "/<repository-name>/"
+```
 
-## Running end-to-end tests
+## Deploy to GitHub Pages
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+1. Push this project to GitHub.
+2. Go to **Settings → Pages**.
+3. Set **Source** to **GitHub Actions**.
+4. Push to `main` or run the workflow manually.
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+The project is static and can be hosted on GitHub Pages.
