@@ -1,25 +1,38 @@
-<section class="card">
-  <h2>Add new user</h2>
+.card {
+  border: 1px solid #d7d7d7;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 520px;
+}
 
-  <form [formGroup]="form" (ngSubmit)="addUser()" class="form">
-    <label>
-      Name
-      <input type="text" formControlName="name" placeholder="Enter name" />
-    </label>
+.form {
+  display: grid;
+  gap: 16px;
+}
 
-    @if (form.controls.name.invalid && (form.controls.name.touched || wasSubmitted())) {
-      <p class="error">Name is required and should contain at least 2 characters.</p>
-    }
+label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+}
 
-    <label>
-      Age
-      <input type="number" formControlName="age" placeholder="Enter age" />
-    </label>
+input {
+  border: 1px solid #bdbdbd;
+  border-radius: 8px;
+  font: inherit;
+  padding: 10px 12px;
+}
 
-    @if (form.controls.age.invalid && (form.controls.age.touched || wasSubmitted())) {
-      <p class="error">Age should be between 1 and 120.</p>
-    }
+button {
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  padding: 10px 14px;
+}
 
-    <button type="submit">Save user</button>
-  </form>
-</section>
+.error {
+  color: #b00020;
+  margin: -8px 0 0;
+}

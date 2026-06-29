@@ -1,25 +1,46 @@
-<section class="card">
-  <div class="header">
-    <h2>Users list</h2>
+.card {
+  border: 1px solid #d7d7d7;
+  border-radius: 12px;
+  padding: 24px;
+}
 
-    @if (usersService.users().length) {
-      <button type="button" class="secondary" (click)="usersService.clearUsers()">Clear all</button>
-    }
-  </div>
+.header,
+li {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
 
-  @if (usersService.users().length) {
-    <ul class="users">
-      @for (user of usersService.users(); track user.id) {
-        <li>
-          <div>
-            <strong>{{ user.name }}</strong>
-            <span>{{ user.age }} years old · added {{ user.createdAt | date: 'medium' }}</span>
-          </div>
-          <button type="button" (click)="usersService.removeUser(user.id)">Remove</button>
-        </li>
-      }
-    </ul>
-  } @else {
-    <p>No users saved in local storage yet.</p>
-  }
-</section>
+.users {
+  display: grid;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  border: 1px solid #eeeeee;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+span {
+  color: #5f6368;
+  display: block;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  padding: 8px 12px;
+}
+
+.secondary {
+  background: transparent;
+  border: 1px solid #bdbdbd;
+}

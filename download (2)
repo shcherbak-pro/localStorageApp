@@ -1,0 +1,25 @@
+<section class="card">
+  <div class="header">
+    <h2>Users list</h2>
+
+    @if (usersService.users().length) {
+      <button type="button" class="secondary" (click)="usersService.clearUsers()">Clear all</button>
+    }
+  </div>
+
+  @if (usersService.users().length) {
+    <ul class="users">
+      @for (user of usersService.users(); track user.id) {
+        <li>
+          <div>
+            <strong>{{ user.name }}</strong>
+            <span>{{ user.age }} years old · added {{ user.createdAt | date: 'medium' }}</span>
+          </div>
+          <button type="button" (click)="usersService.removeUser(user.id)">Remove</button>
+        </li>
+      }
+    </ul>
+  } @else {
+    <p>No users saved in local storage yet.</p>
+  }
+</section>

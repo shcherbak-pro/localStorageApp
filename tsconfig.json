@@ -1,17 +1,44 @@
-# Editor configuration, see https://editorconfig.org
-root = true
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
-[*]
-charset = utf-8
-indent_style = space
-indent_size = 2
-insert_final_newline = true
-trim_trailing_whitespace = true
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
 
-[*.ts]
-quote_type = single
-ij_typescript_use_double_quotes = false
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
 
-[*.md]
-max_line_length = off
-trim_trailing_whitespace = false
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
+.history/*
+
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+__screenshots__/
+
+# System files
+.DS_Store
+Thumbs.db
