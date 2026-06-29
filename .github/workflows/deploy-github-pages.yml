@@ -21,10 +21,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 24
+          package-manager-cache: false
 
       - name: Install dependencies
         run: npm install --no-audit --no-fund --registry=https://registry.npmjs.org/
