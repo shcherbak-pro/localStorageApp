@@ -1,13 +1,70 @@
-<main class="shell">
-  <header>
-    <h1>Work with Local Storage</h1>
-    <p>A small static Angular app that stores users in the browser localStorage.</p>
-  </header>
+<mat-toolbar class="topbar">
+  <div class="brand">
+    <mat-icon aria-hidden="true">database</mat-icon>
+    <span>Browser Storage Demo</span>
+  </div>
 
-  <nav>
-    <a routerLink="/demo" routerLinkActive="active">Users list</a>
-    <a routerLink="/newuser" routerLinkActive="active">Add new user</a>
-  </nav>
+  <a
+    mat-stroked-button
+    href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"
+    target="_blank"
+    rel="noopener"
+    aria-label="Open localStorage documentation"
+  >
+    <mat-icon aria-hidden="true">open_in_new</mat-icon>
+    Docs
+  </a>
+</mat-toolbar>
 
-  <router-outlet />
+<main class="page-shell">
+  <section class="hero mat-elevation-z2">
+    <div>
+      <p class="eyebrow">Angular 22 training sample</p>
+      <h1>Working with browser storage</h1>
+      <p>
+        A small but structured Angular example that demonstrates CRUD operations, search,
+        validation, and persistence with <strong>localStorage</strong> and
+        <strong>sessionStorage</strong>.
+      </p>
+    </div>
+  </section>
+
+  <mat-card class="demo-card">
+    <mat-card-header>
+      <mat-card-title>Storage examples</mat-card-title>
+      <mat-card-subtitle>
+        Switch between tabs to compare the same feature implemented on top of different browser storage APIs.
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="200ms">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon aria-hidden="true">save</mat-icon>
+            Local Storage
+          </ng-template>
+
+          <app-storage-users-panel
+            [store]="localUsersStore"
+            storageName="localStorage"
+            description="Data saved here remains available after closing and reopening the browser tab."
+          />
+        </mat-tab>
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon aria-hidden="true">schedule</mat-icon>
+            Session Storage
+          </ng-template>
+
+          <app-storage-users-panel
+            [store]="sessionUsersStore"
+            storageName="sessionStorage"
+            description="Data saved here is scoped to the current browser tab and is cleared when the tab session ends."
+          />
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
 </main>

@@ -1,0 +1,158 @@
+<section class="storage-panel">
+  <div class="panel-header">
+    <div>
+      <p class="storage-label">{{ storageName }}</p>
+      <h2>User management example</h2>
+      <p>{{ description }}</p>
+    </div>
+
+    <button
+      mat-fab
+      extended
+      color="primary"
+      type="button"
+      (click)="openCreateDialog()"
+      aria-label="Add user"
+    >
+      <mat-icon aria-hidden="true">person_add</mat-icon>
+      Add user
+    </button>
+  </div>
+
+  <mat-card class="search-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon aria-hidden="true">manage_search</mat-icon>
+        Search and filters
+      </mat-card-title>
+      <mat-card-subtitle>
+        Search by name, email, city, role, or id. Filter by role and age range.
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="searchForm" class="search-grid" (ngSubmit)="applySearch()">
+        <mat-form-field appearance="outline" class="query-field">
+          <mat-label>Search</mat-label>
+          <input matInput formControlName="query" placeholder="Name, email, city, role, or id" />
+          <mat-icon matSuffix aria-hidden="true">search</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Role</mat-label>
+          <mat-select formControlName="role">
+            <mat-option value="All">All roles</mat-option>
+            @for (role of roles; track role) {
+              <mat-option [value]="role">{{ role }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Min age</mat-label>
+          <input matInput formControlName="minAge" type="number" min="1" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Max age</mat-label>
+          <input matInput formControlName="maxAge" type="number" min="1" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Sort by</mat-label>
+          <mat-select formControlName="sortBy">
+            <mat-option value="createdDesc">Newest first</mat-option>
+            <mat-option value="createdAsc">Oldest first</mat-option>
+            <mat-option value="nameAsc">Name A-Z</mat-option>
+            <mat-option value="ageAsc">Age ascending</mat-option>
+            <mat-option value="ageDesc">Age descending</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="search-actions">
+          <button mat-mini-fab color="primary" type="submit" matTooltip="Apply filters" aria-label="Apply filters">
+            <mat-icon aria-hidden="true">search</mat-icon>
+          </button>
+          <button mat-mini-fab type="button" matTooltip="Reset filters" aria-label="Reset filters" (click)="resetSearch()">
+            <mat-icon aria-hidden="true">restart_alt</mat-icon>
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="stats-row">
+    <mat-chip-set aria-label="Storage statistics">
+      <mat-chip highlighted>
+        <mat-icon aria-hidden="true">groups</mat-icon>
+        {{ store.totalUsers() }} total
+      </mat-chip>
+      <mat-chip>
+        <mat-icon aria-hidden="true">filter_alt</mat-icon>
+        {{ filteredUsers().length }} visible
+      </mat-chip>
+      @if (activeFiltersCount()) {
+        <mat-chip>
+          <mat-icon aria-hidden="true">tune</mat-icon>
+          {{ activeFiltersCount() }} active filters
+        </mat-chip>
+      }
+    </mat-chip-set>
+
+    @if (store.totalUsers()) {
+      <button mat-icon-button color="warn" type="button" matTooltip="Clear storage" aria-label="Clear all users" (click)="clearUsers()">
+        <mat-icon aria-hidden="true">delete_sweep</mat-icon>
+      </button>
+    }
+  </div>
+
+  @if (filteredUsers().length) {
+    <div class="users-grid">
+      @for (user of filteredUsers(); track trackUser($index, user)) {
+        <mat-card class="user-card" appearance="outlined">
+          <mat-card-header>
+            <div mat-card-avatar class="avatar">
+              {{ user.name.charAt(0).toUpperCase() }}
+            </div>
+            <mat-card-title>{{ user.name }}</mat-card-title>
+            <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <div class="user-meta">
+              <span><mat-icon aria-hidden="true">badge</mat-icon>{{ user.role }}</span>
+              <span><mat-icon aria-hidden="true">cake</mat-icon>{{ user.age }} years</span>
+              <span><mat-icon aria-hidden="true">location_on</mat-icon>{{ user.city }}</span>
+            </div>
+
+            <mat-divider />
+
+            <p class="dates">
+              Added {{ user.createdAt | date: 'medium' }}<br />
+              Updated {{ user.updatedAt | date: 'medium' }}
+            </p>
+          </mat-card-content>
+
+          <mat-card-actions align="end">
+            <button mat-icon-button type="button" matTooltip="Edit user" aria-label="Edit user" (click)="openEditDialog(user)">
+              <mat-icon aria-hidden="true">edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" type="button" matTooltip="Delete user" aria-label="Delete user" (click)="removeUser(user)">
+              <mat-icon aria-hidden="true">delete</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+  } @else {
+    <mat-card class="empty-state" appearance="outlined">
+      <mat-icon aria-hidden="true">inbox</mat-icon>
+      <h3>No users found</h3>
+      <p>Add a new user or change the current search filters.</p>
+      <button mat-flat-button color="primary" type="button" (click)="openCreateDialog()" aria-label="Add first user">
+        <mat-icon aria-hidden="true">person_add</mat-icon>
+        Add user
+      </button>
+    </mat-card>
+  }
+</section>

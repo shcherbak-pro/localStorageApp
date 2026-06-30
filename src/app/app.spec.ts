@@ -1,12 +1,12 @@
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
 import { App } from './app';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
-      providers: [provideRouter([])],
+      providers: [provideAnimationsAsync()],
     }).compileComponents();
   });
 
@@ -16,10 +16,10 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render the page title', () => {
+  it('should render the storage demo title', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Work with Local Storage');
+    expect(compiled.textContent).toContain('Working with browser storage');
   });
 });

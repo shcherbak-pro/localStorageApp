@@ -1,0 +1,68 @@
+<h2 mat-dialog-title>
+  <mat-icon aria-hidden="true">{{ data.mode === 'create' ? 'person_add' : 'edit' }}</mat-icon>
+  {{ title }}
+</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="dialog-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" autocomplete="name" />
+      @if (form.controls.name.hasError('required')) {
+        <mat-error>Name is required.</mat-error>
+      }
+      @if (form.controls.name.hasError('minlength')) {
+        <mat-error>Use at least 2 characters.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" autocomplete="email" />
+      @if (form.controls.email.hasError('required')) {
+        <mat-error>Email is required.</mat-error>
+      }
+      @if (form.controls.email.hasError('email')) {
+        <mat-error>Enter a valid email address.</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="role">
+          @for (role of roles; track role) {
+            <mat-option [value]="role">{{ role }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Age</mat-label>
+        <input matInput formControlName="age" type="number" min="1" max="120" />
+        @if (form.controls.age.invalid) {
+          <mat-error>Age should be between 1 and 120.</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>City</mat-label>
+      <input matInput formControlName="city" autocomplete="address-level2" />
+      @if (form.controls.city.invalid) {
+        <mat-error>City is required.</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" mat-dialog-close aria-label="Cancel">
+    <mat-icon aria-hidden="true">close</mat-icon>
+    Cancel
+  </button>
+  <button mat-flat-button type="button" color="primary" (click)="save()" aria-label="Save user">
+    <mat-icon aria-hidden="true">check</mat-icon>
+    Save
+  </button>
+</mat-dialog-actions>

@@ -1,37 +1,32 @@
-# Migration Report
+# UI and Architecture Refactoring Report
 
 ## Summary
 
-The project was migrated from Angular 8 to Angular 22 using a new Angular CLI project structure and by porting the existing localStorage functionality into modern standalone components.
+The original Local Storage example was redesigned as a modern Angular 22 Browser Storage Demo.
 
-## What changed
+## Main changes
 
-- Replaced Angular 8 NgModule-based setup with Angular 22 standalone components.
-- Removed `ngx-webstorage-service`; the app now uses the browser `localStorage` API directly.
-- Removed obsolete Angular 8 tooling such as TSLint and Protractor/e2e setup.
-- Added a small user form with validation instead of adding a hardcoded user on component initialization.
-- Added user list, remove user, and clear all actions.
-- Added Angular Signals in the users service for simple reactive state.
-- Added hash-based routing to make GitHub Pages refresh/navigation safer.
-- Added GitHub Actions workflow for GitHub Pages deployment.
-- Updated README with local development, build, and deploy instructions.
+- Added Angular Material UI.
+- Replaced plain HTML controls with Material components.
+- Replaced text-heavy action buttons with icon-based actions.
+- Added Material tabs for comparing `localStorage` and `sessionStorage` examples.
+- Added create, edit, delete, clear, search, filtering, and sorting functionality.
+- Introduced a reusable storage service and feature-level stores.
+- Separated the app into a more maintainable feature-based structure.
+- Updated README with an English explanation of the storage examples.
 
-## Validation performed
+## Architecture
 
-```bash
-ng build --base-href /localStorageApp-master/
-```
+The browser storage API access is isolated in `BrowserStorageService`.
 
-Result: successful production build.
+Feature logic lives in `UserStorageStore`, which is reused by:
 
-```bash
-ng test --watch=false
-```
+- `LocalUsersStore`
+- `SessionUsersStore`
 
-Result: 2 tests passed.
+UI logic is split into:
 
-## Notes
+- `StorageUsersPanelComponent`
+- `UserEditorDialogComponent`
 
-Angular 22 requires Node.js `^22.22.3 || ^24.15.0 || >=26.0.0`. The GitHub Actions workflow uses Node 24.
-
-`npm audit` currently reports low-severity issues in development/build tooling packages. No critical/high production dependency issues were found after the migration.
+This keeps components focused on presentation and delegates persistence logic to services.
